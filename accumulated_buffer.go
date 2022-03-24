@@ -9,20 +9,20 @@ package msgpack
 
 func newPreallocBuf() *preallocBuf {
 	return &preallocBuf{
-		buf:   make([]byte, 1024),
+		buf:   make([]byte, accBufSize),
 		index: 0,
 	}
 }
 
 func (g *preallocBuf) allocateBuffer(len int) []byte {
-	if g.index+len < 1024 {
+	if g.index+len < accBufSize {
 		g.index += len
 		return g.buf[g.index-len : g.index]
 	}
-	if len >= 1024 {
+	if len >= accBufMax {
 		return make([]byte, len)
 	}
-	g.buf = make([]byte, 1024)
+	g.buf = make([]byte, accBufSize)
 	g.index = len
 	return g.buf[0:len]
 }

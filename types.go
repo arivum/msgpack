@@ -14,18 +14,19 @@ import (
 )
 
 type Decoder struct {
-	buf                  *preallocBuf
-	underlayingReader    io.Reader
-	r                    *bufio.Reader
-	s                    chan interface{}
-	mapDecoderFuncsByLen []func() (map[string]interface{}, error)
-	lastError            error
-	twoBytes             [2]byte
-	fourBytes            [4]byte
-	eightBytes           [8]byte
-	nextByte             byte
-	closeOnce            sync.Once
-	closeChan            chan struct{}
+	buf                    *preallocBuf
+	underlayingReader      io.Reader
+	r                      *bufio.Reader
+	s                      chan interface{}
+	mapDecoderFuncsByLen   []func() (map[string]interface{}, error)
+	sliceDecoderFuncsByLen []func() ([]interface{}, error)
+	lastError              error
+	twoBytes               [2]byte
+	fourBytes              [4]byte
+	eightBytes             [8]byte
+	nextByte               byte
+	closeOnce              sync.Once
+	closeChan              chan struct{}
 }
 
 type preallocBuf struct {

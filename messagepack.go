@@ -15,21 +15,30 @@ import (
 
 func NewDecoder(r io.Reader) *Decoder {
 	var (
-		buf = bufio.NewReader(r)
+		buf = bufio.NewReaderSize(r, 8<<10)
+		b   = newPreallocBuf()
 		d   = &Decoder{
 			underlayingReader: r,
 			r:                 buf,
 			s:                 make(chan interface{}, 100),
-			buf:               newPreallocBuf(),
+			buf:               b,
 		}
 	)
 	d.mapDecoderFuncsByLen = []func() (map[string]interface{}, error){
 		func() (map[string]interface{}, error) {
-			return emptyMap, nil
+			return map[string]interface{}{}, nil
 		},
 		d.decodeMapEnrolledSingleEntry,
 		d.decodeMapEnrolledTwoEntries,
 		d.decodeMapEnrolledThreeEntries,
+	}
+	d.sliceDecoderFuncsByLen = []func() ([]interface{}, error){
+		func() ([]interface{}, error) {
+			return []interface{}{}, nil
+		},
+		d.decodeSliceEnrolledSingleEntry,
+		d.decodeSliceEnrolledTwoEntries,
+		d.decodeSliceEnrolledThreeEntries,
 	}
 	return d
 }

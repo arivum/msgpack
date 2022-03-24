@@ -39,8 +39,6 @@ const (
 	max5BitPlusOne       = (1 << 5)
 	max4BitPlusOne       = (1 << 4)
 	negFixIntMask        = (-1 << 5)
-)
-
-var (
-	emptyMap = make(map[string]interface{}, 0)
+	accBufSize           = 4 << 10
+	accBufMax            = 1 << 10
 )
