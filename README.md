@@ -2,6 +2,12 @@
 
 > :warning: DO NOT USE, STILL WIP!
 
+![](https://img.shields.io/github/v/tag/arivum/msgpack?label=latest&color=%234488BB)
+![](https://img.shields.io/github/go-mod/go-version/arivum/msgpack?color=%234488BB)
+![](https://img.shields.io/github/workflow/status/arivum/msgpack/Go)
+![](https://img.shields.io/github/license/arivum/msgpack?color=%234488BB)
+
+
 At the minute, this module contains use-case-specific msgpack decoding improved for maximum performance.
 
 [See package documentation](https://pkg.go.dev/github.com/arivum/msgpack)
